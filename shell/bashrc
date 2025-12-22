@@ -1,0 +1,69 @@
+# ================================
+# PATH setup
+# ================================
+
+export PATH="/usr/local/bin:$PATH"
+
+# ================================
+# Android SDK
+# ================================
+
+if [ -d "$HOME/Android/Sdk" ]; then
+    export ANDROID_HOME="$HOME/Android/Sdk"
+    export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+fi
+
+# ================================
+# Node / NVM (Linux-standard)
+# ================================
+
+export NVM_DIR="$HOME/.nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+fi
+
+# ================================
+# Bun
+# ================================
+
+export BUN_INSTALL="$HOME/.bun"
+if [ -d "$BUN_INSTALL/bin" ]; then
+    export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
+# ================================
+# FZF (bash version)
+# ================================
+
+if [ -f "$HOME/.fzf.bash" ]; then
+    source "$HOME/.fzf.bash"
+fi
+
+# ================================
+# Editor
+# ================================
+
+export EDITOR="nvim"
+
+# ================================
+# Yazi helper
+# ================================
+
+y() {
+    local tmp cwd
+    tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+    yazi "$@" --cwd-file="$tmp"
+    cwd="$(cat "$tmp")"
+    if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd "$cwd" || return
+    fi
+    rm -f "$tmp"
+}
+
+# ================================
+# Prompt (optional, bash version)
+# ================================
+
+if command -v oh-my-posh >/dev/null 2>&1; then
+    eval "$(oh-my-posh init bash --config "$HOME/.config/ohmyposh/base.json")"
+fi

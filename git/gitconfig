@@ -1,0 +1,7 @@
+[user]
+	name = nathgoutam93
+	email = nathgoutam93@gmail.com
+[init]
+	defaultBranch = main
+[http]
+	postBuffer = 524288000

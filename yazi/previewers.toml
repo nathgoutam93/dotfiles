@@ -1,0 +1,4 @@
+[previewer.image]
+command = "viu"
+args = ["-w", "$WIDTH", "-h", "$HEIGHT", "$FILE"]
+

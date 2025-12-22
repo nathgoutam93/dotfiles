@@ -1,0 +1,81 @@
+# ================================
+# PATH setup (Homebrew – Apple Silicon first)
+# ================================
+
+if [ -d "/opt/homebrew/bin" ]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+elif [ -d "/usr/local/bin" ]; then
+  export PATH="/usr/local/bin:$PATH"
+fi
+
+# ================================
+# Android SDK
+# ================================
+
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_HOME="$HOME/Library/Android/sdk"
+  export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+fi
+
+# ================================
+# Node / NVM (Homebrew)
+# ================================
+
+if command -v brew >/dev/null 2>&1; then
+  NVM_DIR="$(brew --prefix nvm 2>/dev/null)"
+  if [ -n "$NVM_DIR" ] && [ -s "$NVM_DIR/nvm.sh" ]; then
+    source "$NVM_DIR/nvm.sh"
+  fi
+fi
+
+# ================================
+# Bun
+# ================================
+
+export BUN_INSTALL="$HOME/.bun"
+if [ -d "$BUN_INSTALL/bin" ]; then
+  export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
+if [ -s "$HOME/.bun/_bun" ]; then
+  source "$HOME/.bun/_bun"
+fi
+
+# ================================
+# FZF (zsh)
+# ================================
+
+if [ -f "$HOME/.fzf.zsh" ]; then
+  source "$HOME/.fzf.zsh"
+fi
+
+# ================================
+# Editor
+# ================================
+
+export EDITOR="nvim"
+
+# ================================
+# Yazi helper
+# ================================
+
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
+
+# ================================
+# Prompt (oh-my-posh, non-Apple Terminal)
+# ================================
+
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ] \
+   && command -v oh-my-posh >/dev/null 2>&1; then
+  eval "$(oh-my-posh init zsh --config "$HOME/.config/ohmyposh/base.json")"
+fi
+

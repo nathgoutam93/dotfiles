@@ -1,0 +1,5 @@
+[opener]
+edit = [
+  { run = '${EDITOR:-vi} "$@"', block = true }
+]
+
