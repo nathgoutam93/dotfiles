@@ -1,32 +1,28 @@
 # ================================
-# Oh My Posh setup
+# Editor
 # ================================
 
-# Fail fast
-$ErrorActionPreference = "Stop"
+$env:EDITOR = "nvim"
 
-# Ensure UTF-8 (required for icons/glyphs)
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+# ================================
+# Yazi helper (PowerShell)
+# ================================
 
-# Path to Oh My Posh config
-$OMP_CONFIG = "$HOME\.config\ohmyposh\base.json"
-
-if (-not (Test-Path $OMP_CONFIG)) {
-    Write-Error "Oh My Posh theme not found: $OMP_CONFIG"
-    return
+function y {
+    $tmp = (New-TemporaryFile).FullName
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp -Encoding UTF8
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath (Resolve-Path -LiteralPath $cwd).Path
+    }
+    Remove-Item -Path $tmp
 }
 
-# Initialize Oh My Posh
-oh-my-posh init pwsh --config $OMP_CONFIG | Invoke-Expression
-
 # ================================
-# Optional quality-of-life
+# Prompt (oh-my-posh, PowerShell)
 # ================================
 
-# Better tab completion
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
-
-# Faster prompt redraw
-$env:POSH_SESSION_ID = [guid]::NewGuid().ToString()
+if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
+    oh-my-posh init pwsh --config "$HOME\.config\ohmyposh\base.json" | Invoke-Expression
+}
 

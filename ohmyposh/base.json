@@ -152,7 +152,7 @@
         {
           "foreground": "#55ffff",
           "properties": {
-            "time_format": "_2,15:04"
+            "time_format": "_2,03:04"
           },
           "style": "plain",
           "template": "<#ffffff>[</>\uf073{{ .CurrentDate | date .Format }}<#ffffff>]</>",

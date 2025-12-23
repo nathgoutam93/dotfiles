@@ -1,5 +1,12 @@
+#[opener]
+#edit = [
+#  { run = '${EDITOR:-vi} "$@"', block = true }
+#]
+
 [opener]
 edit = [
-  { run = '${EDITOR:-vi} "$@"', block = true }
+  { run = '${EDITOR:-vi} "$@"', block = true, for = "unix" },
+  { run = 'powershell -NoProfile -Command "& $env:EDITOR $args"', block = true, for = "windows" },
 ]
+
 
