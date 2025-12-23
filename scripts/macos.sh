@@ -24,9 +24,6 @@ link "$DOTFILES/nvim" "$CONFIG_DIR/nvim"
 # Yazi
 link "$DOTFILES/yazi" "$CONFIG_DIR/yazi"
 
-# Tmux
-link "$DOTFILES/tmux" "$CONFIG_DIR/tmux"
-
 # Oh My Posh
 link "$DOTFILES/ohmyposh" "$CONFIG_DIR/ohmyposh"
 
