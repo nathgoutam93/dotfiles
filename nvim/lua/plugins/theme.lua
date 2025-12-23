@@ -10,15 +10,7 @@ return {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
-			dashboard.section.buttons.val = {
-				dashboard.button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-				dashboard.button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-				dashboard.button("SPC f w", "  Find Word  ", ":Telescope live_grep theme=ivy<CR>"),
-				dashboard.button("SPC f b", "  Bookmarks  ", ":Telescope marks theme=ivy<CR>"),
-				dashboard.button("SPC f t", "  Themes  ", ":Telescope colorscheme enable_preview=false<CR>"),
-				dashboard.button("SPC f s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
-				dashboard.button("SPC c i", "  Change header image", ":AlphaAsciiNext<CR>"),
-			}
+			dashboard.section.buttons.val = {}
 
 			vim.api.nvim_create_autocmd("User", {
 				once = true,
@@ -35,6 +27,30 @@ return {
 			})
 
 			alpha.setup(dashboard.opts)
+
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					local buf = vim.api.nvim_get_current_buf()
+
+					if vim.api.nvim_buf_get_name(buf) ~= "" then
+						return
+					end
+
+					if vim.bo[buf].buftype ~= "" then
+						return
+					end
+
+					if vim.api.nvim_buf_line_count(buf) ~= 1 then
+						return
+					end
+
+					if vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] ~= "" then
+						return
+					end
+
+					vim.cmd("Alpha")
+				end,
+			})
 		end,
 	},
 	{
