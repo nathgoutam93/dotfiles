@@ -14,6 +14,13 @@ return {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
+			dashboard.section.buttons.val = {
+				dashboard.button("SPC f d", "  Find File  ", ":Telescope find_files<CR>"),
+				dashboard.button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
+				dashboard.button("SPC f w", "  Find Word  ", ":Telescope live_grep theme=ivy<CR>"),
+				dashboard.button("SPC a h", "  Change header image", ":AlphaAsciiNext<CR>"),
+			}
+
 			alpha.setup(dashboard.opts)
 
 			-- alpha buffer keymap
@@ -41,7 +48,7 @@ return {
 						return
 					end
 
-					vim.cmd("AlphaRedraw")
+					vim.cmd("Alpha")
 				end,
 			})
 		end,
