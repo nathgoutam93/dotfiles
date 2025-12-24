@@ -16,9 +16,9 @@ return {
 
 			dashboard.section.buttons.val = {
 				dashboard.button("SPC f d", "  Find File  ", ":Telescope find_files<CR>"),
-				dashboard.button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-				dashboard.button("SPC f w", "  Find Word  ", ":Telescope live_grep theme=ivy<CR>"),
-				dashboard.button("SPC a h", "  Change header image", ":AlphaAsciiNext<CR>"),
+				dashboard.button("SPC f o", "󱋡  Recent File  ", ":Telescope oldfiles<CR>"),
+				dashboard.button("SPC f w", "󰈞  Find Word  ", ":Telescope live_grep theme=ivy<CR>"),
+				dashboard.button("SPC a h", "  Change header image", ":AlphaAsciiNext<CR>"),
 			}
 
 			alpha.setup(dashboard.opts)

@@ -79,3 +79,6 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ] \
   eval "$(oh-my-posh init zsh --config "$HOME/.config/ohmyposh/base.json")"
 fi
 
+
+# Created by `pipx` on 2025-12-24 13:57:40
+export PATH="$PATH:/Users/nathgoutam93/.local/bin"
