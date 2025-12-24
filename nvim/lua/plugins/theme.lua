@@ -2,25 +2,17 @@ return {
 	{
 		"goolord/alpha-nvim",
 		event = "VimEnter",
+		dependencies = {
+			"nhattVim/alpha-ascii.nvim",
+			opts = {
+				header = "random",
+				use_default = false,
+				user_path = vim.fn.stdpath("config") .. "/ascii",
+			},
+		},
 		config = function()
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
-			local headers = require("headers")
-
-			-- ring iterator state
-			local idx = 0
-			local total = #headers
-
-			local function next_header()
-				idx = (idx % total) + 1
-				return headers[idx]
-			end
-
-			-- initial header
-			dashboard.section.header.val = next_header()
-			dashboard.section.header.opts.hl = "AlphaHeader"
-			dashboard.section.buttons.val = {}
-			dashboard.section.footer.val = "MOMO AYASE"
 
 			alpha.setup(dashboard.opts)
 
@@ -29,8 +21,7 @@ return {
 				pattern = "alpha",
 				callback = function(ev)
 					vim.keymap.set("n", "<leader>ah", function()
-						dashboard.section.header.val = next_header()
-						vim.cmd("Alpha")
+						vim.cmd("AlphaAsciiNext")
 					end, { buffer = ev.buf })
 				end,
 			})
@@ -50,8 +41,7 @@ return {
 						return
 					end
 
-					dashboard.section.header.val = next_header()
-					vim.cmd("Alpha")
+					vim.cmd("AlphaRedraw")
 				end,
 			})
 		end,
