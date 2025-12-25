@@ -20,4 +20,4 @@ except for image previews i'm using [viu](https://github.com/atanunq/viu) other 
 
 ## Bootstrap
 - Simply run the `bootstrap.sh` for linux/mac systems or `bootstrap.ps1` for windows machine on powershellv5.0 or greater.
-- most things will work correctly for unix like systems but for windows some thinks might not work for get go like (image previewer, yazi default open/edit to nvim)
+- most things will work correctly for unix like systems but for windows some thinks might not work from get go. (eg: image previewer and nvim as yazi default opener)
